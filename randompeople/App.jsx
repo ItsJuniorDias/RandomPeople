@@ -4,16 +4,19 @@ import { ThemeProvider } from 'styled-components';
 
 import theme from './src/global/styles/theme';
 
-import Dashboard from './src/screens/Dashboard';
+import { NavigationContainer } from '@react-navigation/native';
+import { AppRoutes } from './src/routes/app.routes';
 
 const App = () => {
   return (
      <ThemeProvider theme={theme}>
-      <StatusBar
-        barStyle="light-content" 
-        backgroundColor={theme.colors.primary}
-      />
-      <Dashboard />
+       <NavigationContainer>
+          <StatusBar
+            barStyle="light-content" 
+            backgroundColor={theme.colors.primary}
+          />
+          <AppRoutes />
+       </NavigationContainer>
     </ThemeProvider>
   );
 };

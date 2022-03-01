@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { FlatList, Text, View } from 'react-native';
 
+import { useNavigation } from '@react-navigation/native';
+
 import { 
   Container, 
 } from './styles';
@@ -9,8 +11,15 @@ import Header from '../../components/Header';
 
 import CardPeople, { PropsCardDTO } from '../../components/CardPeople';
 
+interface PropsUsers {
+  id: string;
+  title: string;
+  last: string;
+  image: string;
+};
+
 const Dashboard = () => {
-  const [data, setData] = useState([
+  const [data, setData] = useState<PropsUsers[]>([
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
       title: 'Alejandro ',
@@ -49,12 +58,23 @@ const Dashboard = () => {
     },
   ]);
 
+  type Nav = {
+    navigate: (value: string) => void;
+  }
+  const { navigate } = useNavigation<Nav>();
+
+  const handleDetails = () => {
+    navigate('Details');
+  }
+
   const renderItem = ({ item }: PropsCardDTO) => (
     <CardPeople
       key={item.id} 
+      id={item.id}
       title={item.title}
       last={item.last} 
       image={item.image}
+      onPress={handleDetails}
     />
   );
 
