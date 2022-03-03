@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
-import { FlatList } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { ActivityIndicator, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+
+import { dataUsersRequest } from '../../store/modules/users/actions';
 
 import Header from '../../components/Header';
 import CardPeople, { PropsCardDTO } from '../../components/CardPeople';
@@ -9,8 +11,12 @@ import CardPeople, { PropsCardDTO } from '../../components/CardPeople';
 import { Nav } from '../../utils/types';
 
 import { 
-  Container, 
+  Container,
+  Content 
 } from './styles';
+
+import api from '../../services/api';
+import theme from '../../global/styles/theme';
 
 interface PropsUsers {
   id: string;
@@ -59,8 +65,12 @@ const Dashboard = () => {
     },
   ]);
 
-  const users = useSelector(state => state);
-  console.log(users, 'Catalog');
+  const { data: dataUsers } = useSelector(state => state);
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(dataUsersRequest());
+  }, []);
 
   const { navigate } = useNavigation<Nav>();
 
@@ -68,26 +78,38 @@ const Dashboard = () => {
     navigate('Details');
   }
 
-  const renderItem = ({ item }: PropsCardDTO) => (
+  const renderItem = ({ item }: PropsCardDTO) => {
+   const { login: { uuid }, name: { first, last }, picture: { thumbnail }} = item;
+
+   return(
     <CardPeople
-      key={item.id} 
-      id={item.id}
-      title={item.title}
-      last={item.last} 
-      image={item.image}
+      key={uuid} 
+      id={uuid}
+      title={first}
+      last={last} 
+      image={thumbnail}
       onPress={handleDetails}
     />
-  );
+  )};
 
   return (
     <Container>
       <Header title="Dashboard" />
+
+      {dataUsers && (
+        <Content>
+           <ActivityIndicator size="large" color={theme.colors.primary} />
+         </Content>
+      )}
+       
+      {!dataUsers && (
+        <FlatList
+         data={dataUsers}
+         renderItem={renderItem}
+         keyExtractor={({ login }) => login.uuid?.toString()}
+        />
+      )}
       
-      <FlatList
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={item => item.id?.toString()}
-      />
     </Container>
   );
 };

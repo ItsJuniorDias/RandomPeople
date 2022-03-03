@@ -7,6 +7,12 @@ export const Container = styled.SafeAreaView `
 
 `;
 
+export const Content = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
+
 
 
 
