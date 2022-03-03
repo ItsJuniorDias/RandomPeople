@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { FlatList, Text, View } from 'react-native';
-
+import { FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from "react-redux";
+
+import Header from '../../components/Header';
+import CardPeople, { PropsCardDTO } from '../../components/CardPeople';
+
+import { Nav } from '../../utils/types';
 
 import { 
   Container, 
 } from './styles';
-
-import Header from '../../components/Header';
-
-import CardPeople, { PropsCardDTO } from '../../components/CardPeople';
 
 interface PropsUsers {
   id: string;
@@ -58,9 +59,9 @@ const Dashboard = () => {
     },
   ]);
 
-  type Nav = {
-    navigate: (value: string) => void;
-  }
+  const users = useSelector(state => state);
+  console.log(users, 'Catalog');
+
   const { navigate } = useNavigation<Nav>();
 
   const handleDetails = () => {
