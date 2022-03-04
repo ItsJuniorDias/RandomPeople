@@ -101,7 +101,8 @@ const Dashboard = ({ navigation }) => {
     <CardPeople
       key={item.user_id} 
       id={item.user_id}
-      title={item.name_first}
+      title={item.name_title}
+      first={item.name_first}
       last={item.name_last} 
       image={item.picture_thumbnail}
       onPress={() => handleDetails(item)}
