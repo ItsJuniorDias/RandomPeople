@@ -1,10 +1,15 @@
 import { AxiosResponse } from "axios";
-import { all, call, takeLatest, put } from "redux-saga/effects";
+import { all, call, takeLatest, put,  } from "redux-saga/effects";
+
+import { synchronize } from '@nozbe/watermelondb/sync';
+import { database } from "../../../database";
+import { User } from "../../../database/model/User";
+
 import api from "../../../services/api";
 
 import { dataUsersSuccess, dataUsersFailure } from "./actions";
 
-import { ActionTypes } from "./types";
+import { ActionTypes, iUser } from "./types";
 
 function* getUsers() {
   try {

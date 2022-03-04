@@ -10,6 +10,12 @@ import { AppRoutes } from './src/routes/app.routes';
 
 import theme from './src/global/styles/theme';
 
+import { LogBox  } from 'react-native';
+
+LogBox.ignoreLogs([
+  'Non-serializable values were found in the navigation state',
+]);
+
 const App = () => {
   return (
     <Provider store={store}>
