@@ -15,7 +15,7 @@ Application built with react native consuming data from a people API
 **Installing dependencies**
 
 ```
-$ cd enterprise 
+$ cd ramdompeople 
 $ yarn 
 ```
 
@@ -29,7 +29,7 @@ $ yarn
 Android
 
 ```
-$ cd enterprise 
+$ cd ramdompeople 
 $ yarn android 
 ```
 
