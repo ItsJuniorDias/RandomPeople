@@ -18,6 +18,7 @@ import {
 
 import api from '../../services/api';
 import theme from '../../global/styles/theme';
+import { database } from '../../database';
 
 interface PropsUsers {
   id: string;
@@ -28,7 +29,7 @@ interface PropsUsers {
 
 const Dashboard = () => {
   const { data: dataUsers } = useSelector(state => state);
-  console.log(dataUsers, 'Users');
+  // console.log(dataUsers, 'Users');
 
   const windowHeight = Dimensions.get('window').height;
 
@@ -36,6 +37,16 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(dataUsersRequest())
+  }, []);
+
+  useEffect(() => {
+     async function loadData() {
+       const userCollection = database.get('users');
+       const users = await userCollection.query().fetch();
+       console.log(users, 'USERS DATA COLLECTION')
+     }
+
+     loadData()
   }, []);
 
   const { navigate } = useNavigation<Nav>();
