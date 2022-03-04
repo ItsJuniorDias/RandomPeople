@@ -1,6 +1,8 @@
 # RandomPeople 😃
 Application built with react native consuming data from a people API
 
+![ramdompeople-horz](https://user-images.githubusercontent.com/50254416/156847563-5c4242f3-940d-4140-bad6-590e8c3e1853.jpg)
+
 ### Tools
 - **Axios** were used for consumption by Api
 - **Styled-component** to work with customizable components
